@@ -7,14 +7,99 @@
         <title>Fantasy Sports Helper</title>
     </head>
     <body>
-        <img src="../images/logo.jpeg" class=center >
-        <div class="wrap">
-            <div class="search">
-               <input type="text" class="searchTerm" placeholder="Enter a name of a player or team...">
-               <button type="submit" class="searchButton"> Search!</button>
-                 <i class="fa fa-search"></i>
-              </button>
+
+        <div class="topArea">
+
+            <img src="../images/logo.jpeg" class=center>
+            <div class="wrap">
+                <div class="search">
+                   <input type="text" class="searchTerm" placeholder="Enter a name of a player or team...">
+                   <button type="submit" class="searchButton" onclick="showResults()"> Search!</button>
+                     <i class="fa fa-search"></i>
+                  </button>
+                </div>
             </div>
-         </div>
+        </div>
+
+        <div class="suggestedSearchArea" id="suggestedSearchArea">
+            <p>These Sites May Interest You</p>
+            <p><a href="www.youtube.com">www.suggestion.com</a></p>
+            <p><a href="www.youtube.com">www.anotherSuggestion.com</a></p>
+            <p><a href="www.youtube.com">www.trythissite.com</a></p>
+        </div>
+        
+
+        <!-- OUR TEN RESULTS - Can toggle hide/show whole resultArea or single
+            results using ids, like if <10 results found -->
+        <div class="resultArea" id="resultArea">
+            <div class="result" id="result1">
+                <a href="www.youtube.com">www.youtube.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result2">
+                <a href="www.youtube.com">www.pinterest.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result3">
+                <a href="www.youtube.com">www.instagram.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result4">
+                <a href="www.youtube.com">www.nfl.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result5">
+                <a href="www.youtube.com">www.fantasysports.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result6">
+                <a href="www.youtube.com">www.nba.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result7">
+                <a href="www.youtube.com">www.nba.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result8">
+                <a href="www.youtube.com">www.nba.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result9">
+                <a href="www.youtube.com">www.nba.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+            <div class="result" id="result10">
+                <a href="www.youtube.com">www.nba.com</a>
+                <p>This could be the first 20 or so words in the document if
+                    we want to add that!</p>
+            </div>
+        </div>
+        
+
+        <!-- javascript -->
+        <script>
+            function showResults() {
+                var resultArea = document.getElementById("resultArea");
+                var suggestedSearchArea = document.getElementById("suggestedSearchArea");
+                resultArea.style.display = "block" // show the div
+                suggestedSearchArea.style.display = "none" // hide the div
+            }
+        </script>
+
+
     </body>
 </html>
+
+
+
+
+
