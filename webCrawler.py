@@ -73,7 +73,7 @@ class WebCrawler:
 		else:
 			cwd = os.getcwd()
 			folderName = self.fileName
-			path = os.path.join(cwd, folderName)
+			path = os.path.join(cwd, "pages")
 		try:
 			os.mkdir(path)
 			print("Created folder to hold crawled pages:",folderName)
@@ -91,7 +91,7 @@ class WebCrawler:
 			if len(url1) > 255:
 				url1 = url1[:254]
 
-			with open(f'{self.fileName}/{url1}.txt', 'w') as f:
+			with open(f'pages/{url1}.txt', 'w') as f:
 				f.write(url)
 				f.write('\n')
 				f.write(content)
