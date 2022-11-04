@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href= "{{ url_for('static',filename='style/main.css') }}">
+		<title>Results</title>
+	</head>
+
+	<body>
+        <div class = "results">
+                <div class="search">
+                    <form method="get" action="{{ url_for('results') }}" class="search">
+                        <input type="text" class="searchTerm" placeholder="Enter a name of a player or team..." name="query">
+                        <input type="submit" value="Search"  class="searchButton" onclick="showResults()"/>
+                    </form>	
+                </div>
+				{% for title, url, desription in results %}
+                <div class = "resultElement">
+                    <a href= {{url}} >{{title}}</a>
+                    <h4>{{desription}}</h3>
+                </div>
+				{% endfor %}
+        </div>
+		<form method="post" action="{{ url_for('index') }}">
+			<input type="submit" value="Return" />
+		</form>	
+	</body>	
+</html>
