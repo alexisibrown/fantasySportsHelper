@@ -18,14 +18,15 @@ body {
   width: 100%;
   position: relative;
   display: flex;
+  padding-bottom: 20px;
 }
 
 .searchTerm {
   width: 100%;
-  border: 3px solid #030303;
+  border: 2px solid black;
   border-right: none;
   padding: 5px;
-  height: 20px;
+  height: 25px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #020503;
@@ -37,14 +38,14 @@ body {
 
 .searchButton {
   width: 90px;
-  height: 37px;
-  border: 1px solid #0f292c;
-  background: #030505;
+  height: 39px;
+  border: 2px solid black;
+  background: #EAFDF9;
   text-align: center;
-  color: #fff;
+  color: black;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 /*Resize the wrap to see the search bar change!*/
@@ -107,7 +108,7 @@ and possibly a blurb of the raw text if the proj requires it*/
 }
 
 .suggestedSearchArea a:hover{
-  color: yellow;
+  color: #F3EADA;
 }
 
 .suggestedSearchArea p{
@@ -115,7 +116,7 @@ and possibly a blurb of the raw text if the proj requires it*/
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  color: yellow;
+  color: black;
   font-size: 20px;
 }
 
@@ -123,7 +124,7 @@ and possibly a blurb of the raw text if the proj requires it*/
 /*FEATURES*/
 
 .suggestedSearchArea {
-  padding-top: 200px;
+  padding-top: 160px;
 }
 
 .suggestedSearch {
@@ -141,7 +142,18 @@ and possibly a blurb of the raw text if the proj requires it*/
   justify-content: flex-start;
 }
 
+.resultElement h4 {
+  margin-top: 1px;
+}
 
+.resultElement a{
+  color: #EAFDF9;
+  font-size: 18px;
+}
+
+.resultElement a:hover{
+  color: #F3EADA;
+}
 
 
 
