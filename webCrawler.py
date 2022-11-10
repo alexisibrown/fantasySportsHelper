@@ -41,8 +41,9 @@ class WebCrawler:
 			robotParser.set_url(robo)
 			try:
 				robotParser.read()
-			except Exception:
+			except Exception as e:
 				print("Failed to read robots.txt of",robo)
+				print(e)
 				return False
 			else:
 				self.robotTxts[parsedUrl.hostname] = robotParser
@@ -59,8 +60,9 @@ class WebCrawler:
 			if(CT is not None and "text/html" in CT):
 				return page.text
 			return "Error"
-		except Exception:
+		except Exception as e:
 			print('Error grabbing URL text: Request Timed out')
+			print(e)
 			return "Error"		
 
 	#Create folder to hold webpages crawled
@@ -96,13 +98,30 @@ class WebCrawler:
 				f.write('\n')
 				f.write(content)
 			self.count+=1
-		except Exception:
-			print("Failed to write to file")
+		except Exception as e:
+			print("Failed to write to file:")
+			print(e)
 
 	def handler(self,signum,frame):
 		print("\nProgram has been stopped. Crawled Pages:",self.count)
 		self.createAdjMatrixFile()
 		exit(1)
+	
+	#Filters out unwanted file types
+	def checkUrlType(self,url):
+		if ".pdf" in url:
+			return 0
+		if ".png" in url:
+			return 0
+		if ".jpg" in url:
+			return 0
+		if ".doc" in url:
+			return 0
+		if ".mp3" in url:
+			return 0
+		if ".mp4" in url:
+			return 0
+		return 1
 
 	#Return True if URLs were able to get extracted from given page, false if error with reading robots.txt
 	def getUrlsFromPage(self,url,html):
@@ -115,7 +134,7 @@ class WebCrawler:
 		for link in bs.find_all('a'):
 			UrlPath = link.get("href")
 			if(UrlPath != '/'):
-				if UrlPath is not None and ".pdf" not in UrlPath and ".png" not in UrlPath:
+				if UrlPath is not None and self.checkUrlType(UrlPath) == 1:
 					if UrlPath.startswith('/'):
 						UrlPath = urljoin(url,UrlPath)
 						listofUrls.append(UrlPath)
@@ -155,6 +174,72 @@ class WebCrawler:
 		self.createAdjMatrixFile()
 		print("Crawled a total of",self.count-1,"pages!")
 		
+
+def main():
+	seed = 'https://www.basketball-reference.com/'
+	pageNumber = 5000
+
+	#Print default settings and ask if they're good
+	#If N, go thru the settings one by one
+
+	print("Web Crawler")
+	print("==========================")
+	print("Default Settings")
+	print("==========================")
+	print("Seed: https://www.basketball-reference.com/")
+	print("# of pages to be crawled: 5000")
+	print("==========================")
+
+	isDone = 0
+	while not isDone:
+		ustr = input("Would you like to use the default settings? (Y/N): ")
+		if ustr == "N" or ustr == "n":
+			
+			isDone2 = 0
+			while not isDone2:
+				ustr2 = input("Would you like to use the default seed? (Y/N): ")
+				if ustr2 == "N" or ustr2 == "n":
+					newSeed = input("Please enter a URL: ")
+					seed = newSeed
+					print(seed+" will be used as the seed.")
+					isDone2 = 1
+				elif ustr2 == "Y" or ustr2 == "y":
+					print("The default seed will be used.")
+					isDone2 = 1
+				else:
+					print("Please enter Y or N.")
+					continue
+			
+			isDone3 = 0
+			while not isDone3:
+				ustr3 = input("Would you like to use the default number of pages? (Y/N): ")
+				if ustr3 == "N" or ustr3 == "n":
+					newNum = input("Please enter a number: ")
+					pageNumber = int(newNum)
+					print(str(pageNumber)+" pages will be crawled.")
+					isDone3 = 1
+				elif ustr3 == "Y" or ustr3 == "y":
+					print("The default number of pages will be used.")
+					isDone3 = 1
+				else:
+					print("Please enter Y or N.")
+					continue
+			isDone = 1
+			
+		elif ustr == "Y" or ustr == "y":
+			print("Default settings will be used.")
+			isDone = 1
+		else:
+			print("Please enter Y or N.")
+			continue
+	print("==========================")
+	print("Crawler beginning now.")
+	print("==========================")
+	print()
+	WebCrawler(Seed = [seed]).crawl(pageNumber)
+
+	
 # Initialize crawler and give it a seed and how many pages to crawl before end
 if __name__ == '__main__':
-	WebCrawler(Seed = ["https://www.basketball-reference.com/"]).crawl(5000)
+	#WebCrawler(Seed = ["https://www.basketball-reference.com/"]).crawl(5000)
+	main()
