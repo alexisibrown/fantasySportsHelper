@@ -5,16 +5,23 @@
 		<link rel="stylesheet" href= "{{ url_for('static',filename='style/main.css') }}">
 		<title>Results</title>
 	</head>
-
 	<body>
         <div class = "results">
         	<img src="{{ url_for('static',filename='images/logo.png') }}" class=center>
                 <div class="search">
                     <form method="get" action="{{ url_for('results') }}" class="search">
-                        <input type="text" class="searchTerm" placeholder="Enter a name of a player or team..." name="query">
+                        <input type="text" class="searchTerm" id="search" placeholder="{{query}}" name="query">
                         <input type="submit" value="Search"  class="searchButton" onclick="showResults()"/>
                     </form>	
                 </div>
+				<div class = "playerCard">
+					<img src={{player_info[8]}} alt="" width="200" height="150">
+					<div class = "player_info">
+						<p>Name: {{player_info[0]}}</p>
+						<p>Team: {{player_info[1]}}</p>
+						<p>PPG: {{player_info[4]}}	RPG: {{player_info[5]}}	APG: {{player_info[6]}}</p>
+					</div>
+				</div>
 				{% for title, url, desription in results %}
                 <div class = "resultElement">
                     <a href= {{url}} >{{title}}</a>

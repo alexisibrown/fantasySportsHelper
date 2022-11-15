@@ -47,7 +47,12 @@ body {
   cursor: pointer;
   font-size: 17px;
 }
-
+.playerCard{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  background: #F3EADA;
+}
 /*Resize the wrap to see the search bar change!*/
 .wrap{
   width: 30%;
