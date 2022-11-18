@@ -47,11 +47,28 @@ body {
   cursor: pointer;
   font-size: 17px;
 }
+.player_button{
+  background: #EAFDF9;
+  border: 2px solid black;
+  border-radius: 0 5px 5px 0;
+  font-size: 12px;
+  cursor: pointer;
+
+}
 .playerCard{
   display: flex;
   flex-direction: row;
   border: 2px solid black;
   background: #F3EADA;
+  border-radius: 5px 5px 5px 5px;
+}
+.playerCard a{
+  color: rgb(2, 0, 0);
+  font-size: 18px;
+}
+
+.playerCard a:hover{
+  color: #8a8a84;
 }
 /*Resize the wrap to see the search bar change!*/
 .wrap{

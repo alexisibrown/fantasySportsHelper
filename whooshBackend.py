@@ -3,7 +3,7 @@ import whoosh.index as indexa
 from flask import Flask, render_template, url_for, request
 from whooshSearchers import MyWhooshPlayerSearcher,MyWhooshSearcher
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -20,12 +20,13 @@ def results():
 		data = request.args
 	query = data.get('query')
 	print("You searched for: " + query)
-	titles, urls,descriptions = mySearcher.search(query,ix,10,"disjunctive")
-	player_results= myPlayerSearcher.search(query,ix2,1,"disjunctive")
-	if player_results != -1:
-		return render_template('results.html', query=query, results=zip(titles, urls, descriptions),
-		player_info = player_results)
-	return render_template('results.html', query=query, results=zip(titles, urls, descriptions))
+	player = False
+	multiple_players = False
+	titless, urlss,descriptionss = mySearcher.search(query,ix,10,"disjunctive")
+	names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images= myPlayerSearcher.search(query,ix2,15,"con")
+	if len(names) > 0:  player = True
+	if len(names) > 1:  multiple_players = True
+	return render_template('results.html', query=query, results=zip(titless, urlss, descriptionss),player_info = zip(names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images),player=player,multiple_players=multiple_players)
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ import os
 import csv
 import json
 import signal
+import time
 
 
 class WebCrawler:
@@ -164,6 +165,7 @@ class WebCrawler:
 		while pagesToCrawl and self.count <= limit:
 			url = pagesToCrawl.pop(0)
 			if url not in pagesAlreadyCrawled:
+				time.sleep(5)
 				if self.checkRobots(url):
 					print("Crawling",url,"-------- Crawled",self.count," pages")
 					html = self.getHtml(url)
@@ -177,7 +179,7 @@ class WebCrawler:
 
 def main():
 	seed = 'https://www.basketball-reference.com/'
-	pageNumber = 5000
+	pageNumber = 30000
 
 	#Print default settings and ask if they're good
 	#If N, go thru the settings one by one
@@ -236,10 +238,10 @@ def main():
 	print("Crawler beginning now.")
 	print("==========================")
 	print()
-	WebCrawler(Seed = [seed]).crawl(pageNumber)
+	WebCrawler(Seed = ["https://www.basketball-reference.com/","https://www.nfl.com","https://www.nba.com"]).crawl(pageNumber)
 
 	
 # Initialize crawler and give it a seed and how many pages to crawl before end
 if __name__ == '__main__':
-	#WebCrawler(Seed = ["https://www.basketball-reference.com/"]).crawl(5000)
+	#WebCrawler(Seed = ["https://www.basketball-reference.com/","https://www.nba.com"]).crawl(5000)
 	main()

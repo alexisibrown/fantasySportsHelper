@@ -38,6 +38,15 @@ class MyWhooshPlayerSearcher(object):
 		#search index based on given query and return user specified number of hits
 	def search(self,search_query,index,return_number,disjunctive):
 		from whoosh.qparser import QueryParser
+		names = list()
+		teams = list()
+		urls = list()
+		positions = list()
+		PPGs = list()
+		RPGs = list()
+		APGs = list()
+		numbers = list()
+		images = list()
 		with index.searcher() as searcher:
 			#disjunctive
 			if(disjunctive=="disjunctive"):
@@ -50,19 +59,24 @@ class MyWhooshPlayerSearcher(object):
 			query = query.parse(search_query)
 			results = searcher.search(query,limit = return_number)
 
-			#print results
-			name,team,url,position,PPG,RPG,APG,number,image = -1,-1,-1,-1,-1,-1,-1,-1,-1
+			print (len(results))
+			if len(results) ==0:
+				from whoosh.qparser import MultifieldParser
+				query = MultifieldParser(['name','team'],schema=index.schema,group=qparser.AndGroup)
+				query = query.parse(search_query)
+				results = searcher.search(query,limit = return_number)
+			#name,team,url,position,PPG,RPG,APG,number,image = -1,-1,-1,-1,-1,-1,-1,-1,-1
 			for r in results:
-				name = r['name']
-				team = r['team']
-				url  = r['url']
-				position = r['position']
-				PPG = r['PPG']
-				RPG = r['RPG']
-				APG = r['APG']
-				number = r['number']
-				image = r['image']
-			return name,team,url,position,PPG,RPG,APG,number,image
+				names.append(r['name'])
+				teams.append(r['team'])
+				urls.append(r['url'])
+				positions.append(r['position'])
+				PPGs.append(r['PPG'])
+				RPGs.append(r['RPG'])
+				APGs.append(r['APG'])
+				numbers.append(r['number'])
+				images.append(r['image'])
+			return names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images
 
 		#return size of index in terms of tuples
 	def getIndexSize(self,index):
@@ -113,33 +127,38 @@ class MyWhooshSearcher(object):
 			#parse query and search
 			query = query.parse(search_query)
 			results = searcher.search(query,limit = return_number)
-
+			print(results)
 			#print results
 			for r in results:
+				print(r['title'])
 				titles.append(self.getTitle(r["title"]))
 				urls.append(r["url"])
 				descriptions.append(self.getDescription(r["content"]))
 
 		return titles,urls,descriptions
+		
 	def getTitle(self,title):
-		if len(title.partition('|')[0]) < 50:
-			return title.partition('|')[0]
-		elif(len(title.partition('.')[0])>50):
-			return title.partition('.')[0]
-		elif(len(title.partition('-')[0])>50):
-			return title.partition('-')[0]
-		return title[0:50]
+		new_title = ""
+		words = title.split(" ")
+		count = 0
+		for word in words:
+			if count ==12:
+				break
+			new_title+=word+" "
+			count+=1
+		return new_title
 
 		#return description for url
 	def getDescription(self,content):
-		if len(content.partition('|')[0]) < 150:
-			return content.partition('|')[0]
-		elif(len(content.partition('.')[0])>150):
-			return content.partition('.')[0]
-		elif(len(content.partition('-')[0])>150):
-			return content.partition('-')[0]
-		return content[0:150]+"..."
-		return description
+		new_description = ""
+		words = content.split(" ")
+		count = 0
+		for word in words:
+			if count ==20:
+				break
+			new_description+=word+" "
+			count+=1
+		return new_description
 
 		#return size of index in terms of tuples
 	def getIndexSize(self,index):
@@ -147,13 +166,4 @@ class MyWhooshSearcher(object):
 		#Clear index
 	def clear_index(self,index):
 		shutil.rmtree(index)
-
-# if __name__ == '__main__':
-# 	global mySearcher
-# 	mySearcher = MyWhooshPlayerSearcher()
-# 	#mySearcher.clear_index("player_index_dir")
-# 	ix = indexa.open_dir("player_index_dir")
-# 	#mySearcher.buildIndex("players")
-# 	result = mySearcher.search("Lebron",ix,1,"con")
-# 	print(result)
 

@@ -14,13 +14,26 @@
                         <input type="submit" value="Search"  class="searchButton" onclick="showResults()"/>
                     </form>	
                 </div>
+				{% if player %}
+				<input type ="button" id='button'class="player_button" value="Toggle Players" >
+				{% endif %}
+				<div id="players">
+				{% for name,team,url,position,PPG,RPG,APG,number,image in player_info %}
 				<div class = "playerCard">
-					<img src={{player_info[8]}} alt="" width="200" height="150">
+					<img src={{image}} alt="" width="200" height="150">
 					<div class = "player_info">
-						<p>Name: {{player_info[0]}}</p>
-						<p>Team: {{player_info[1]}}</p>
-						<p>PPG: {{player_info[4]}}	RPG: {{player_info[5]}}	APG: {{player_info[6]}}</p>
+						<a href = {{url}}>{{name}}</a>
+						<p>{{team}}: {{position}}</p>
+						<p>PPG: {{PPG}} RPG: {{RPG}} APG:  {{APG}}</p>
+						{% if multiple_players %}
+						<form method="get" action="{{ url_for('results') }}">
+							<input type="hidden" name="query" value="{{name}}">
+							<input type="submit" class="player_button" value="Results for '{{name}}' " query="{{name}}" onclick="showResults()"/>
+						</form>
+						{% endif %}
 					</div>
+				</div>
+				{% endfor %}
 				</div>
 				{% for title, url, desription in results %}
                 <div class = "resultElement">
@@ -38,3 +51,17 @@
 		</form>	
 	</body>	
 </html>
+
+<script>
+var button = document.getElementById('button'); // Assumes element with id='button'
+
+button.onclick = function() {
+    var div = document.getElementById('players');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+};
+</script>
