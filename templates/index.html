@@ -19,12 +19,11 @@
                 </div>
             </div>
         </div>
-
         <div class="suggestedSearchArea" id="suggestedSearchArea">
             <p>These Sites May Interest You</p>
-            <p><a href="www.youtube.com">www.suggestion.com</a></p>
-            <p><a href="www.youtube.com">www.anotherSuggestion.com</a></p>
-            <p><a href="www.youtube.com">www.trythissite.com</a></p>
+            {%for i in range(0, 5)%}
+                <p><a href="www.youtube.com">www.suggestion.com</a></p>
+            {%endfor%}
         </div>
 
     </body>

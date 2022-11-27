@@ -179,7 +179,7 @@ class WebCrawler:
 
 def main():
 	seed = 'https://www.basketball-reference.com/'
-	pageNumber = 30000
+	pageNumber = 100
 
 	#Print default settings and ask if they're good
 	#If N, go thru the settings one by one
@@ -238,7 +238,8 @@ def main():
 	print("Crawler beginning now.")
 	print("==========================")
 	print()
-	WebCrawler(Seed = ["https://www.basketball-reference.com/","https://www.nfl.com","https://www.nba.com"]).crawl(pageNumber)
+	#WebCrawler(Seed = ["https://www.basketball-reference.com/","https://www.nfl.com","https://www.nba.com"]).crawl(pageNumber)
+	WebCrawler(Seed = ["https://rotogrinders.com/reviews"]).crawl(pageNumber)
 
 	
 # Initialize crawler and give it a seed and how many pages to crawl before end
