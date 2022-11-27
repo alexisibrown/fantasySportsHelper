@@ -23,9 +23,16 @@ def sessionHandler(clientIP):
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	print("Someone is at the home page.")
-	sessionHandler(request.remote_addr)
+	clientIP = request.remote_addr
+	sessionHandler(clientIP)
 
-	return render_template('index.html')
+	# get latest search string
+	latestSearch = None
+	searchHistory = session.get(clientIP)
+	if len(searchHistory) != 0:
+		latestSearch = searchHistory[-1]
+
+	return render_template('index.html', history=latestSearch)
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():

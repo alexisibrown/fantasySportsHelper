@@ -20,10 +20,17 @@
             </div>
         </div>
         <div class="suggestedSearchArea" id="suggestedSearchArea">
-            <p>These Sites May Interest You</p>
-            {%for i in range(0, 5)%}
-                <p><a href="www.youtube.com">www.suggestion.com</a></p>
-            {%endfor%}
+            {% if history %}      
+                <p>These Sites May Interest You</p>
+                    {% for title, url, desription in results %}
+                    <div class = "resultElement">
+                        <a href= {{url}} >{{title}}</a>
+                        <!--<h4>{{desription}}</h3>-->
+                    </div>
+                    {% endfor %}
+                <p3>Results are based off your most recent search:</p3>
+                <p3>{{history}}</p3>
+            {% endif %}
         </div>
 
     </body>
