@@ -2,7 +2,6 @@ import whoosh.index as indexa
 from flask import Flask, render_template, url_for, request, session, redirect
 from whooshSearchers import MyWhooshPlayerSearcher,MyWhooshSearcher
 from datetime import timedelta # persistance
-from flask_session import Session
 
 app = Flask(__name__) 
 # used to encrypt flask user data
