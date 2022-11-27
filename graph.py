@@ -20,6 +20,7 @@ class Graph:
 			self.nodes.append(vertices[i])
 			self.incomingLinks[vertices[i]] = []
 			self.outgoingLinks[vertices[i]] = []
+			
 
 	# nodeA points to nodeB    A --> B
 	def addEdge(self, nodeA, nodeB):
@@ -48,18 +49,12 @@ class Graph:
 		# outgoingLinks[A] = [B, ...]
 		self.outgoingLinks[nodeA].append(nodeB)
 
+
 	def print(self):
 		for node in self.nodes:
 			print(f"Node: {node}\n"):
 			print(f"Incoming Links: {self.incomingLinks[node]}\n")
 			print(f"Outgoing Links: {self.outgoingLinks[node]}\n")
-
-
-
-	def get_pageRank(self):
-		print("pagerank")
-
-
 
 
 	# hub and authority rankings for each node (site)

@@ -7,6 +7,7 @@ from whoosh.qparser import MultifieldParser
 from whoosh import qparser
 import os 
 import whoosh.index as indexa
+import json
 
 class MyWhooshPlayerSearcher(object):
 	def __init__(self):
@@ -89,6 +90,8 @@ class MyWhooshPlayerSearcher(object):
 class MyWhooshSearcher(object):
 	def __init__(self):
 		super(MyWhooshSearcher, self).__init__()
+		f = open('page_rank_scores.json')
+		self.data = json.load(f)
 
 	def buildIndex(self,directory):
 		#Each tuple will have a url and the content of that url that is in our corpus
@@ -127,13 +130,29 @@ class MyWhooshSearcher(object):
 			#parse query and search
 			query = query.parse(search_query)
 			results = searcher.search(query,limit = return_number)
-			print(results)
+
+			# order it off pagerank scores 
+			pr = []
+			for result in results:
+				if self.data.get(result["url"]) != None:
+					pr.append((self.data.get(result["url"]), result)) # list of (prScore, result object)
+
+			#print(f"list of pr results {pr}")
+			pr.sort(key=lambda x: x[0], reverse=True) # sort list of tuples by pr score (greatest to least)
+			print(f"pr tuples sorted:")
+			for r in pr:
+				print(f"PR SCORE: {r[0]}, URL: {r[1]['url']}")
+
+
+			#print(results)
 			#print results
-			for r in results:
-				print(r['title'])
-				titles.append(self.getTitle(r["title"]))
-				urls.append(r["url"])
-				descriptions.append(self.getDescription(r["content"]))
+
+			# greatest pr first, to least pr
+			for r in pr:
+				#print(r[1]['title'])
+				titles.append(self.getTitle(r[1]["title"]))
+				urls.append(r[1]["url"])
+				descriptions.append(self.getDescription(r[1]["content"]))
 
 		return titles,urls,descriptions
 		
@@ -166,4 +185,12 @@ class MyWhooshSearcher(object):
 		#Clear index
 	def clear_index(self,index):
 		shutil.rmtree(index)
+
+
+
+
+
+
+
+
 
