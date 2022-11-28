@@ -49,7 +49,7 @@ def results():
 	ix2 = indexa.open_dir("player_index_dir")
 	if request.method == 'POST':
 		data = request.form
-	else: # ignore
+	else:
 		data = request.args
 	query = data.get('query')
 	page = data.get('page')
