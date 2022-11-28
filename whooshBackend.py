@@ -29,10 +29,19 @@ def index():
 	# get latest search string
 	latestSearch = None
 	searchHistory = session.get(clientIP)
+
+	# IF USER HAS A SEARCH HISTORY:
 	if len(searchHistory) != 0:
 		latestSearch = searchHistory[-1]
 
-	return render_template('index.html', history=latestSearch)
+		ix = indexa.open_dir("indexdir")
+		titless, urlss,descriptionss = mySearcher.hitsSearch(latestSearch, ix, 5, "disjunctive", 1)
+
+		return render_template('index.html', history=latestSearch, results=zip(titless, urlss, descriptionss))
+
+	# user has no search history, dont search / HITS
+	else:
+		return render_template('index.html', history=latestSearch)
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
@@ -40,7 +49,7 @@ def results():
 	ix2 = indexa.open_dir("player_index_dir")
 	if request.method == 'POST':
 		data = request.form
-	else:
+	else: # ignore
 		data = request.args
 	query = data.get('query')
 	page = data.get('page')

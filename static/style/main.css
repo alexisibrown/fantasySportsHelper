@@ -92,56 +92,18 @@ body {
   transform: translate(-50%, -50%);
 }
 
-
-/*RESULTS*/
-
-/*All result CSS goes into a resultArea container, so we 
-can show / hide the container*/
-.resultArea {
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  top: 200px;
-  display: none;
-}
-
-/*one result box. Will contain the link to that website
-and possibly a blurb of the raw text if the proj requires it*/
-.result {
-  display: block;
-  color: white;
-  text-align: center;
-}
-
 .results {
   max-width: 1000px;
-}
-
-/*paragraph and a tag changes that are children
-  of class result*/
-.result p{
-  margin-top: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 30%;
-  color: lightgray;
-}
-.result a{
-  color: white;
-  font-size: 18px;
-}
-
-.result a:hover{
-  color: yellow;
 }
 
 /*paragraph and a tag changes that are children
   of class suggestedSearch*/
 .suggestedSearchArea{
     margin-top: 5%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .suggestedSearchArea a{
   color: white;
@@ -165,7 +127,7 @@ and possibly a blurb of the raw text if the proj requires it*/
 /*FEATURES*/
 
 .suggestedSearchArea {
-  padding-top: 160px;
+  padding-top: 100px;
 }
 
 .suggestedSearch {
@@ -199,6 +161,34 @@ and possibly a blurb of the raw text if the proj requires it*/
 .nextPage{
   cursor:pointer
 }
+
+/* Result elements for suggestions on home page */
+
+.resultElementSuggestion{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.resultElementSuggestion h4 {
+  margin-top: 1px;
+}
+
+.resultElementSuggestion a{
+  color: #EAFDF9;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.resultElementSuggestion a:hover{
+  color: #F3EADA;
+}
+
+
+
+
+
 
 
 

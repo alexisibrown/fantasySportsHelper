@@ -122,7 +122,7 @@ if __name__ == '__main__':
 	data = json.load(f)
 
 	websiteNodes1 = list(data.keys()) # list of keys 
-	
+
 	websiteNodes = websiteNodes1[:100] # TESTING -- corpus of 100 sites
 
 	graph = Graph(websiteNodes)
@@ -146,22 +146,6 @@ if __name__ == '__main__':
 
 	pickle.dump(hitsScores, hitsFile) # save hits dictionary scores to file
 	hitsFile.close()
-	
-
-
-
-
-	
-
-
-	#graph = Graph(siteNodes)
-
-	'''
-	for site in websiteData
-		for link... 
-			graph.addEdge(site, link)
-
-	'''
 
 
 

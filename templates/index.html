@@ -24,13 +24,13 @@
             {% if history %}      
                 <p>These Sites May Interest You</p>
                     {% for title, url, desription in results %}
-                    <div class = "resultElement">
+                    <div class = "resultElementSuggestion">
                         <a href= {{url}} >{{title}}</a>
                         <!--<h4>{{desription}}</h3>-->
                     </div>
                     {% endfor %}
-                <p3>Results are based off your most recent search:</p3>
-                <p3>{{history}}</p3>
+                <p4>Results are based off your most recent search:</p4>
+                <p4>{{history}}</p4>
             {% endif %}
         </div>
 

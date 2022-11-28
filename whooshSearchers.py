@@ -93,6 +93,11 @@ class MyWhooshSearcher(object):
 		f = open('page_rank_scores.json')
 		self.data = json.load(f)
 
+		f1 = open('hits_scores.json')
+		hitsData = json.load(f1)
+		self.hubDict = hitsData[1]
+		self.authDict = hitsData[0]
+
 	def buildIndex(self,directory):
 		#Each tuple will have a url and the content of that url that is in our corpus
 		schema = Schema(title = TEXT(stored=True),url=TEXT(stored=True),content=TEXT(stored=True))
@@ -115,7 +120,6 @@ class MyWhooshSearcher(object):
 		writer.commit()
 		#search index based on given query and return user specified number of hits
 	def search(self,search_query,index,return_number,disjunctive ,pagenumber):
-		from whoosh.qparser import QueryParser
 		titles = list()
 		urls = list()
 		descriptions = list()
@@ -129,21 +133,20 @@ class MyWhooshSearcher(object):
 
 			#parse query and search
 			query = query.parse(search_query)
-			results = searcher.search_page(query, pagenumber)
+			results = searcher.search_page(query, pagenumber, pagelen=return_number)
 
 			# order it off pagerank scores 
 			pr = []
 			for result in results:
-				if self.data.get(result["url"]) != None:
-					pr.append((self.data.get(result["url"]), result)) # list of (prScore, result object)
+				pRank = self.data.get(result["url"])
+				if pRank == None:
+					pRank = 0
+
+				pr.append((pRank, result)) # list of (prScore, result object)
 
 			#print(f"list of pr results {pr}")
 			pr.sort(key=lambda x: x[0], reverse=True) # sort list of tuples by pr score (greatest to least)
-		
-
-
-			#print(results)
-			#print results
+			
 
 			# greatest pr first, to least pr
 			for r in pr:
@@ -153,6 +156,58 @@ class MyWhooshSearcher(object):
 				descriptions.append(self.getDescription(r[1]["content"]))
 
 		return titles,urls,descriptions
+
+
+	# if return number is -1, then dont limit returned pages
+	def hitsSearch(self, search_query, index, return_number, disjunctive, pagenumber):
+		titles = list()
+		urls = list()
+		descriptions = list()
+
+		with index.searcher() as searcher:
+			#disjunctive
+			if(disjunctive=="disjunctive"):
+				query = QueryParser('content',schema=index.schema,group=qparser.OrGroup)
+			#conjunctive
+			else:
+				query = QueryParser('content',schema=index.schema)
+
+			#parse query and search
+			query = query.parse(search_query)
+			results = searcher.search_page(query, pagenumber, pagelen=return_number)
+
+			# order it off hits scores 
+			hit = []
+			for result in results:
+				hubVal = self.hubDict.get(result["url"])
+				authVal = self.authDict.get(result["url"])
+
+				if hubVal == None:
+					hubVal = 0
+					print(f"hubval was None")
+
+				if authVal == None:
+					authVal = 0
+					print(f"authVal was none")
+
+				# hit score combined = authority score + hub score
+				hitComb = hubVal + authVal
+
+				hit.append((hitComb, result)) # list of (hitScore, result object)
+
+			#print(f"list of hit results {hit}")
+			hit.sort(key=lambda x: x[0], reverse=True) # sort list of tuples by pr score (greatest to least)
+			#print(f"\nSORTED hit results: {hit}")
+		
+
+			# greatest pr first, to least pr
+			for h in hit:
+				#print(r[1]['title'])
+				titles.append(self.getTitle(h[1]["title"]))
+				urls.append(h[1]["url"])
+				descriptions.append(self.getDescription(h[1]["content"]))
+
+		return titles, urls, descriptions
 		
 	def getTitle(self,title):
 		new_title = ""
