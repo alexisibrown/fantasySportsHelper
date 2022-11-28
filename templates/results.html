@@ -42,13 +42,29 @@
                 </div>
 				{% endfor %}
         </div>
-		<form method="post" action="{{ url_for('index') }}">
-			<input type="submit" value="Return" 
-				style="background: #EAFDF9; height: 35px; width: 85px; 
-						margin-bottom: 20px; margin-top: 20px; border-radius: 5px;
-						font-size: 17px; border: 2px solid black;"
-			/>
-		</form>	
+		<div class = "navigation">
+			<form method="get" action="{{ url_for('results') }}">
+				<input type="hidden" name="query" value="{{query}}">
+				<input type="hidden" name="page" value="1">
+				<input type="submit" value="First Page" onclick="showResults()" class="nextPage" style="background: #EAFDF9; height: 35px; width: 95px; 
+				margin-bottom: 20px; margin-top: 20px; border-radius: 5px;
+				font-size: 17px; border: 2px solid black;"/>
+		   </form>	
+			<form method="post" action="{{ url_for('index') }}">
+				<input type="submit" value="Return" class="nextPage"
+					style="background: #EAFDF9; height: 35px; width: 85px; 
+							margin-bottom: 20px; margin-top: 20px; border-radius: 5px;
+							font-size: 17px; border: 2px solid black;"
+				/>
+			</form>	
+			<form method="get" action="{{ url_for('results') }}">
+				<input type="hidden" name="query" value="{{query}}">
+				<input type="hidden" name = "page" id="inc" value="{{page}}"></input>
+				<input type="submit" value="Next Page" onclick="showResults(); buttonClick()" class="nextPage" style="background: #EAFDF9; height: 35px; width: 95px; 
+				margin-bottom: 20px; margin-top: 20px; border-radius: 5px;
+				font-size: 17px; border: 2px solid black;"/>
+		   </form>	
+		</div>
 	</body>	
 </html>
 

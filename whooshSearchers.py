@@ -114,7 +114,7 @@ class MyWhooshSearcher(object):
 						writer.add_document(title = (Lines[1].partition('|')[0]) , url=Lines[0].strip(),content = Lines[1])
 		writer.commit()
 		#search index based on given query and return user specified number of hits
-	def search(self,search_query,index,return_number,disjunctive):
+	def search(self,search_query,index,return_number,disjunctive ,pagenumber):
 		from whoosh.qparser import QueryParser
 		titles = list()
 		urls = list()
@@ -129,7 +129,7 @@ class MyWhooshSearcher(object):
 
 			#parse query and search
 			query = query.parse(search_query)
-			results = searcher.search(query,limit = return_number)
+			results = searcher.search_page(query, pagenumber)
 
 			# order it off pagerank scores 
 			pr = []
@@ -139,9 +139,7 @@ class MyWhooshSearcher(object):
 
 			#print(f"list of pr results {pr}")
 			pr.sort(key=lambda x: x[0], reverse=True) # sort list of tuples by pr score (greatest to least)
-			print(f"pr tuples sorted:")
-			for r in pr:
-				print(f"PR SCORE: {r[0]}, URL: {r[1]['url']}")
+		
 
 
 			#print(results)

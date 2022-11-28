@@ -13,6 +13,7 @@
             <div class="wrap">
                 <div class="search">
                    <form method="get" action="{{ url_for('results') }}" class="search">
+                        <input type="hidden" name = "page" id="inc" value="1"></input>
                         <input type="text" class="searchTerm" placeholder="Enter a name of a player or team..." name="query">
                         <input type="submit" value="Search"  class="searchButton" onclick="showResults()"/>
                    </form>	

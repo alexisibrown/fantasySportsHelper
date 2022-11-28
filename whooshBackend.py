@@ -43,7 +43,11 @@ def results():
 	else:
 		data = request.args
 	query = data.get('query')
-	print("You searched for: " + query)
+	page = data.get('page')
+	if page == None:
+		page = 1
+	
+	print("You searched for: " + query,page)
 
 	clientIP = request.remote_addr
 	# check if needs to be created. Handles the slim chance that session expires between
@@ -53,11 +57,11 @@ def results():
 
 	player = False
 	multiple_players = False
-	titless, urlss,descriptionss = mySearcher.search(query,ix,10,"disjunctive")
+	titless, urlss,descriptionss = mySearcher.search(query,ix,10,"disjunctive",int(page))
 	names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images= myPlayerSearcher.search(query,ix2,15,"con")
 	if len(names) > 0:  player = True
 	if len(names) > 1:  multiple_players = True
-	return render_template('results.html', query=query, results=zip(titless, urlss, descriptionss),player_info = zip(names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images),player=player,multiple_players=multiple_players)
+	return render_template('results.html', query=query, results=zip(titless, urlss, descriptionss),player_info = zip(names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images),player=player,multiple_players=multiple_players,page=int(page)+1)
 
 
 if __name__ == '__main__':

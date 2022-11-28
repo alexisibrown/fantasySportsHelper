@@ -8,11 +8,13 @@ body {
   }
 
 .topArea {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 }
 
 .center {
-    /*width: 25%;*/
+    margin: auto;
+    display: block;
 }
 .search {
   width: 100%;
@@ -54,6 +56,17 @@ body {
   font-size: 12px;
   cursor: pointer;
 
+}
+.navigation{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#players{
+  margin-bottom: 30px;
+}
+#button{
+  margin-bottom: 10px;
 }
 .playerCard{
   display: flex;
@@ -102,6 +115,10 @@ and possibly a blurb of the raw text if the proj requires it*/
   text-align: center;
 }
 
+.results {
+  max-width: 1000px;
+}
+
 /*paragraph and a tag changes that are children
   of class result*/
 .result p{
@@ -123,7 +140,9 @@ and possibly a blurb of the raw text if the proj requires it*/
 
 /*paragraph and a tag changes that are children
   of class suggestedSearch*/
-
+.suggestedSearchArea{
+    margin-top: 5%;
+}
 .suggestedSearchArea a{
   color: white;
   font-size: 18px;
@@ -177,8 +196,9 @@ and possibly a blurb of the raw text if the proj requires it*/
   color: #F3EADA;
 }
 
-
-
+.nextPage{
+  cursor:pointer
+}
 
 
 
