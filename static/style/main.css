@@ -84,8 +84,30 @@ body {
   color: #8a8a84;
 }
 
-.advancedBox {
-    display: flex;
+.advancedBox{
+	display: flex;
+	border: 2px solid black;
+	background: #EAFDF9;
+}
+.advKeyLabel{
+	margin-left: 75px;
+}
+.advKeyBar{
+	margin-left: 20px;
+}
+.advSearchButton{
+	margin-left: 240px;
+}
+.advanced_button{
+  /*width: 90px;
+  height: 39px;*/
+  border: 2px solid black;
+  background: #EAFDF9;
+  text-align: center;
+  color: black;
+  /*border-radius: 0 5px 5px 0;
+  cursor: pointer;*/
+  font-size: 17px;
 }
 
 /*Resize the wrap to see the search bar change!*/
