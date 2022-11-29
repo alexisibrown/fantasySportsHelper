@@ -21,28 +21,28 @@
             </div>
         </div>
     
-    	<input type ="button" id='button'class="advanced_button" value="Advanced Search" >
-		<div id="advanced">
-			<div class="advancedBox">
-				<form method="get" action="{{ url_for('results') }}">
-					<label for="terms">Keywords:</label><br>
-					<input type="text" id="terms" name="query"><br>
-					<label for="ppgmin">PPG min:</label><br>
-					<input type="number" step="0.1" id="ppgmin" name="ppgmin"><br>
-					<label for="ppgmax">PPG max:</label><br>
-					<input type="number" step="0.1" id="ppgmax" name="ppgmax"><br>
-					<label for="rpgmin">RPG min:</label><br>
-					<input type="number" step="0.1" id="rpgmin" name="rpgmin"><br>
-					<label for="rpgmax">RPG max:</label><br>
-					<input type="number" step="0.1" id="rpgmax" name="rpgmax"><br>
-					<label for="apgmin">APG min:</label><br>
-					<input type="number" step="0.1" id="apgmin" name="apgmin"><br>
-					<label for="apgmax">APG max:</label><br>
-					<input type="number" step="0.1" id="apgmax" name="apgmax">
-					<input type="submit" class="advanced_button" value="Search" onclick="showResults()"/>
-				</form>
-			</div>
+	<input type ="button" id='button' class="advanced_button" value="Advanced Search" >
+	<div id="advanced">
+		<div class="advancedBox">
+			<form method="get" action="{{ url_for('results') }}">
+				<label for="terms" class="advKeyLabel">Keywords: </label>
+				<input type="text" id="terms" name="query" class="advKeyBar"><br>
+				<label for="ppgmin">PPG min: </label>
+				<input type="number" step="0.1" id="ppgmin" name="ppgmin">   &emsp;
+				<label for="ppgmax">PPG max: </label>
+				<input type="number" step="0.1" id="ppgmax" name="ppgmax"><br>
+				<label for="rpgmin">RPG min: </label>
+				<input type="number" step="0.1" id="rpgmin" name="rpgmin">   &emsp;
+				<label for="rpgmax">RPG max: </label>
+				<input type="number" step="0.1" id="rpgmax" name="rpgmax"><br>
+				<label for="apgmin">APG min: </label>
+				<input type="number" step="0.1" id="apgmin" name="apgmin">   &emsp;
+				<label for="apgmax">APG max: </label>
+				<input type="number" step="0.1" id="apgmax" name="apgmax"><br>
+				<input type="submit" class="advSearchButton" value="Search" onclick="showResults()"/>
+			</form>
 		</div>
+	</div>
     
         <div class="suggestedSearchArea" id="suggestedSearchArea">
             {% if history %}      
