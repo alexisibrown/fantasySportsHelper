@@ -83,6 +83,11 @@ body {
 .playerCard a:hover{
   color: #8a8a84;
 }
+
+.advancedBox {
+    display: flex;
+}
+
 /*Resize the wrap to see the search bar change!*/
 .wrap{
   width: 30%;
