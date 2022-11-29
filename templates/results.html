@@ -17,7 +17,7 @@
 				{% if player %}
 				<input type ="button" id='button'class="player_button" value="Toggle Players" >
 				{% endif %}
-				<div id="players">
+				<div id="players" style="display:none">
 				{% for name,team,url,position,PPG,RPG,APG,number,image in player_info %}
 				<div class = "playerCard">
 					<img src={{image}} alt="" width="200" height="150">
