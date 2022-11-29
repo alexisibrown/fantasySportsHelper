@@ -70,6 +70,87 @@ def results():
 	names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images= myPlayerSearcher.search(query,ix2,15,"con")
 	if len(names) > 0:  player = True
 	if len(names) > 1:  multiple_players = True
+	
+	#Advanced Search Stuff
+	if data.get('ppgmin') != None and data.get('ppgmin') != "":
+		for i in range(0,len(names)-1):
+			if float(PPGs[i]) < float(data.get('ppgmin')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	if data.get('ppgmax') != None and data.get('ppgmax') != "":
+		for i in range(0,len(names)-1):
+			if float(PPGs[i]) > float(data.get('ppgmax')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	if data.get('rpgmin') != None and data.get('rpgmin') != "":
+		for i in range(0,len(names)-1):
+			if float(RPGs[i]) < float(data.get('rpgmin')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	if data.get('rpgmax') != None and data.get('rpgmax') != "":
+		for i in range(0,len(names)-1):
+			if float(RPGs[i]) > float(data.get('rpgmax')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	if data.get('apgmin') != None and data.get('apgmin') != "":
+		for i in range(0,len(names)-1):
+			if float(APGs[i]) < float(data.get('apgmin')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	if data.get('apgmax') != None and data.get('apgmax') != "":
+		for i in range(0,len(names)-1):
+			if float(APGs[i]) > float(data.get('apgmax')):
+				names.pop(i)
+				teams.pop(i)
+				urls.pop(i)
+				positions.pop(i)
+				PPGs.pop(i)
+				RPGs.pop(i)
+				APGs.pop(i)
+				numbers.pop(i)
+				images.pop(i)
+				i -= 1
+	
 	return render_template('results.html', query=query, results=zip(titless, urlss, descriptionss),player_info = zip(names,teams,urls,positions,PPGs,RPGs,APGs,numbers,images),player=player,multiple_players=multiple_players,page=int(page)+1)
 
 
